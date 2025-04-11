@@ -1,9 +1,6 @@
 package com.lol.champs_info.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -14,13 +11,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
+@Table(name = "champions")
 public class ChampionsEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    private String clazz;
+    private String classType;
     private String role;
     private String tier;
     private Double score;
