@@ -28,4 +28,5 @@ public class ChampionsEntity {
     private Double pickRate;
     private Double banRate;
     private Double kda;
+    private String regions;
 }
