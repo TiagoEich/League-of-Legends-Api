@@ -23,8 +23,10 @@ public class CsvLoaderService implements CommandLineRunner {
 
     @Override // method required from CommandLineRunner. It comes from default.
     public void run(String... args) throws Exception {
-        String file = "src/main/resources/lolchamps.csv";
-        importChampionsFromCsv(file);
+        if (repository.count()==0) {
+            String file = "src/main/resources/lolchamps.csv";
+            importChampionsFromCsv(file);
+        }
     }
 
     public void importChampionsFromCsv(String file) {
