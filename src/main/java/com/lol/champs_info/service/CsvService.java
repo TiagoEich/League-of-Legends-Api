@@ -1,7 +1,7 @@
 package com.lol.champs_info.service;
 
-import com.lol.champs_info.model.ChampionsEntity;
-import com.lol.champs_info.repository.ChampionsRepository;
+import com.lol.champs_info.model.ChampionEntity;
+import com.lol.champs_info.repository.ChampionRepository;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
@@ -12,12 +12,12 @@ import java.io.FileReader;
 import java.util.List;
 
 @Service
-public class CsvLoaderService implements CommandLineRunner {
+public class CsvService implements CommandLineRunner {
 
     //This is required, without the repository, JPA will not be able to connect this Csv class, to Postgres
-    private final ChampionsRepository repository;
+    private final ChampionRepository repository;
 
-    public CsvLoaderService(ChampionsRepository repository) {
+    public CsvService(ChampionRepository repository) {
         this.repository = repository;
     }
 
@@ -33,17 +33,17 @@ public class CsvLoaderService implements CommandLineRunner {
         try (FileReader reader = new FileReader(file)) {
 
             //It's a mapping strategy that makes the matching between the columns from the CSV file and atributes from the class
-            HeaderColumnNameMappingStrategy<ChampionsEntity> strategy = new HeaderColumnNameMappingStrategy<>();
-            strategy.setType(ChampionsEntity.class); //tells the mapper which is the class will be used to do the
+            HeaderColumnNameMappingStrategy<ChampionEntity> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(ChampionEntity.class); //tells the mapper which is the class will be used to do the
             //mapping
 
 
-            CsvToBean<ChampionsEntity> csvToBean = new CsvToBeanBuilder<ChampionsEntity>(reader)
+            CsvToBean<ChampionEntity> csvToBean = new CsvToBeanBuilder<ChampionEntity>(reader)
                     .withMappingStrategy(strategy)
                     .withIgnoreLeadingWhiteSpace(true) //This will ignore white Spaces, such as: " Aatrox" = "Aatrox"
                     .build();
 
-            List<ChampionsEntity> champions = csvToBean.parse(); //convert the rows of the CSV file in objects for Java
+            List<ChampionEntity> champions = csvToBean.parse(); //convert the rows of the CSV file in objects for Java
             repository.saveAll(champions);
         } catch (Exception e) {
             e.printStackTrace();
