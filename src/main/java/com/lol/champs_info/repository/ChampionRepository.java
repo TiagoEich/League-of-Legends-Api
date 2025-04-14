@@ -15,7 +15,7 @@ public interface ChampionRepository extends JpaRepository<ChampionEntity, UUID> 
     champions who appear more than once but with different roles. This shouldn't be visible on this query because I just want the names of them. */
     List<String> findNames(); // Used on service, method: getChampion
 
-    @Query(value = "SELECT DISTINCT ON (c.name) c.* FROM champions c WHERE c.regions = :region",   //it can be necessary to use 'value' parameter when having a more complex query
+    @Query(value = "SELECT c.* FROM champions c WHERE LOWER(c.region) = LOWER(:region)",   //it can be necessary to use 'value' parameter when having a more complex query
             nativeQuery = true) //Distinct = consider all the columns.... Distinct on = only consider the specified columns
     //nativeQuery specified that this query is totally from postgres not JPQL
 
@@ -23,6 +23,10 @@ public interface ChampionRepository extends JpaRepository<ChampionEntity, UUID> 
     when I search by region, a champion mentioned more than once on the CSV file won't appear twice or more. Example:
      Imagine there is a champion with 5 different roles, instead of showing up 5 times this champ, it will appear once. */
     List<ChampionEntity> findDistinctByRegion(@Param("region") String region);
+
+    @Query(value = "SELECT c.* FROM champions c WHERE LOWER(c.class_type) = LOWER(:classType)",
+            nativeQuery = true)
+    List<ChampionEntity> findByClassType(@Param("classType") String classType);
 
     Optional<ChampionEntity> findByName(String name); // used on service, method: updateChampion
 
