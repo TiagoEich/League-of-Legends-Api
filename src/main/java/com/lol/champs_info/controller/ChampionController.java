@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api")
 public class ChampionController {
 
     private final ChampionService championService;
@@ -19,14 +18,30 @@ public class ChampionController {
     }
 
     @GetMapping("/names")
-        public ResponseEntity<List<String>> getAllChamps() {
-    return ResponseEntity.ok(championService.getChampions());
+        public ResponseEntity<List<String>> getAllChampsName() {
+    return ResponseEntity.ok(championService.getChampionsName());
 
     }
 
     @GetMapping("/region/{region}")
     public ResponseEntity<List<ChampionEntity>> getChampionsByRegion(@PathVariable String region) {
         return ResponseEntity.ok(championService.getChampionsFromRegion(region));
+    }
+
+
+    @GetMapping("/class/{classType}")
+    public ResponseEntity<List<ChampionEntity>>getChampionsByClass(@PathVariable String classType) {
+        return ResponseEntity.ok(championService.getChampionsByClass(classType));
+    }
+
+    @GetMapping("/getier/{tier}")
+    public ResponseEntity<?> getChampionsByTier (@PathVariable String tier) {
+        try{
+            List<ChampionEntity> champion = championService.getChampionsByTier(tier);
+            return ResponseEntity.ok(champion);
+        }catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping
@@ -38,6 +53,10 @@ public class ChampionController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+
+
+
 
 
 
