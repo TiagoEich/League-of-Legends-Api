@@ -3,6 +3,7 @@ package com.lol.champs_info.service;
 import com.lol.champs_info.model.ChampionEntity;
 import com.lol.champs_info.repository.ChampionRepository;
 import com.lol.champs_info.validators.ChampionValidator;
+import com.lol.champs_info.validators.TierValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,17 +13,17 @@ import java.util.stream.Collectors;
 @Service
 public class ChampionService {
 
-
     private final ChampionRepository championRepository;
-    private ChampionValidator championValidator;
+    private final ChampionValidator championValidator;
+    private final TierValidator tierValidator;
 
-
-    public ChampionService(ChampionValidator championValidator, ChampionRepository championRepository) {
-        this.championValidator = championValidator;
+    public ChampionService(ChampionRepository championRepository, ChampionValidator championValidator, TierValidator tierValidator) {
         this.championRepository = championRepository;
+        this.championValidator = championValidator;
+        this.tierValidator = tierValidator;
     }
 
-    public List<String> getChampions() {
+    public List<String> getChampionsName() {
         return championRepository.findNames();
     }
 
@@ -30,10 +31,8 @@ public class ChampionService {
         return championRepository.findDistinctByRegion(region);
     }
 
-    public List <ChampionEntity> getChampionsByClass(String searchText) {
-        return championRepository.findAll().stream()
-                .filter(champions ->  champions.getClassType().toLowerCase().contains(searchText.toLowerCase()))
-                .collect(Collectors.toList());
+    public List <ChampionEntity> getChampionsByClass(String classType) {
+        return championRepository.findByClassType(classType);
     }
 
     public List <ChampionEntity> getChampionsByRole(String searchText) {
@@ -43,9 +42,11 @@ public class ChampionService {
                 .collect(Collectors.toList());
     }
 
-    public List <ChampionEntity> getChampionsByTier(String searchText) {
+    public List<ChampionEntity> getChampionsByTier(String tier) {
+        tierValidator.validate(tier);
+
         return championRepository.findAll().stream()
-                .filter(champions -> champions.getTier().toLowerCase().contains(searchText.toLowerCase()))
+                .filter(champion -> tier.equalsIgnoreCase(champion.getTier()))
                 .collect(Collectors.toList());
     }
 
