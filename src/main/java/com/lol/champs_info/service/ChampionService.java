@@ -3,6 +3,7 @@ package com.lol.champs_info.service;
 import com.lol.champs_info.model.ChampionEntity;
 import com.lol.champs_info.repository.ChampionRepository;
 import com.lol.champs_info.validators.ChampionValidator;
+import com.lol.champs_info.validators.RoleValidator;
 import com.lol.champs_info.validators.TierValidator;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,13 @@ public class ChampionService {
     private final ChampionRepository championRepository;
     private final ChampionValidator championValidator;
     private final TierValidator tierValidator;
+    private final RoleValidator roleValidator;
 
-    public ChampionService(ChampionRepository championRepository, ChampionValidator championValidator, TierValidator tierValidator) {
+    public ChampionService(ChampionRepository championRepository, ChampionValidator championValidator, TierValidator tierValidator, RoleValidator roleValidator) {
         this.championRepository = championRepository;
         this.championValidator = championValidator;
         this.tierValidator = tierValidator;
+        this.roleValidator = roleValidator;
     }
 
     public List<String> getChampionsName() {
@@ -35,11 +38,11 @@ public class ChampionService {
         return championRepository.findByClassType(classType);
     }
 
-    public List <ChampionEntity> getChampionsByRole(String searchText) {
-        return championRepository.findAll().stream()
-                .filter(champions ->
-                        champions.getRole().toLowerCase().contains(searchText.toLowerCase()))
-                .collect(Collectors.toList());
+    public List <ChampionEntity> getChampionsByRole(String role) {
+          roleValidator.validation(role);
+          return championRepository.findAll().stream()
+                  .filter(champion -> role.equalsIgnoreCase(champion.getRole()))
+                  .collect(Collectors.toList());
     }
 
     public List<ChampionEntity> getChampionsByTier(String tier) {
