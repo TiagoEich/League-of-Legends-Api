@@ -34,7 +34,17 @@ public class ChampionController {
         return ResponseEntity.ok(championService.getChampionsByClass(classType));
     }
 
-    @GetMapping("/getier/{tier}")
+    @GetMapping("/role/{role}")
+    public ResponseEntity<?> getChampionsByRole (@PathVariable String role) {
+        try{
+            List <ChampionEntity> champion = championService.getChampionsByRole(role);
+            return ResponseEntity.ok(champion);
+        }catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/tier/{tier}")
     public ResponseEntity<?> getChampionsByTier (@PathVariable String tier) {
         try{
             List<ChampionEntity> champion = championService.getChampionsByTier(tier);
