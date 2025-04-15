@@ -10,11 +10,11 @@ public class TierValidator {
 
     public void validate(String tier) {
         if (tier == null || tier.trim().isEmpty()) {
-            throw new IllegalArgumentException("Tier is required!");
+            throw new IllegalArgumentException ("Tier is required!");
         }
 
         if (!VALID_TIERS.contains(tier.toUpperCase())) {
-            throw new IllegalArgumentException("Invalid tier '"+tier+"'. Valid tiers are: '"+VALID_TIERS+"'");
+            throw new IllegalArgumentException ("Invalid tier '"+tier+"'. Valid tiers are: '"+VALID_TIERS+"'");
         }
     }
 }
