@@ -2,9 +2,8 @@ package com.lol.champs_info.service;
 
 import com.lol.champs_info.model.ChampionEntity;
 import com.lol.champs_info.repository.ChampionRepository;
-import com.lol.champs_info.validators.ChampionValidator;
-import com.lol.champs_info.validators.RoleValidator;
-import com.lol.champs_info.validators.TierValidator;
+import com.lol.champs_info.validators.*;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,34 +14,43 @@ import java.util.stream.Collectors;
 public class ChampionService {
 
     private final ChampionRepository championRepository;
-    private final ChampionValidator championValidator;
+    private final AddChampionValidator championValidator;
     private final TierValidator tierValidator;
     private final RoleValidator roleValidator;
+    private final RegionValidator regionValidator;
+    private final ClassTypeValidator classTypeValidator;
 
-    public ChampionService(ChampionRepository championRepository, ChampionValidator championValidator, TierValidator tierValidator, RoleValidator roleValidator) {
+    public ChampionService(ChampionRepository championRepository, AddChampionValidator
+                                   championValidator, TierValidator tierValidator, RoleValidator roleValidator,
+                           RegionValidator regionValidator, ClassTypeValidator classTypeValidator) {
         this.championRepository = championRepository;
         this.championValidator = championValidator;
         this.tierValidator = tierValidator;
         this.roleValidator = roleValidator;
+        this.regionValidator = regionValidator;
+        this.classTypeValidator = classTypeValidator;
     }
 
-    public List<String> getChampionsName() {
+    public List<String> getChampionsName()
+    {
         return championRepository.findNames();
     }
 
     public List<ChampionEntity> getChampionsFromRegion(String region){
+        regionValidator.validateRegion(region);
         return championRepository.findDistinctByRegion(region);
     }
 
     public List <ChampionEntity> getChampionsByClass(String classType) {
+        classTypeValidator.validateClass(classType);
         return championRepository.findByClassType(classType);
     }
 
     public List <ChampionEntity> getChampionsByRole(String role) {
-          roleValidator.validation(role);
-          return championRepository.findAll().stream()
-                  .filter(champion -> role.equalsIgnoreCase(champion.getRole()))
-                  .collect(Collectors.toList());
+        roleValidator.validation(role);
+        return championRepository.findAll().stream()
+                .filter(champion -> role.equalsIgnoreCase(champion.getRole()))
+                .collect(Collectors.toList());
     }
 
     public List<ChampionEntity> getChampionsByTier(String tier) {
@@ -82,12 +90,26 @@ public class ChampionService {
         return  null;
     }
 
+    @Transactional
+    public boolean deleteByNameAndRole (String name, String role) {
+        List<ChampionEntity> champions = championRepository.findAll().stream()
+                .filter(champion -> champion.getName().equalsIgnoreCase(name)
+                        && champion.getRole().equalsIgnoreCase(role)).
+                toList();
+        if (champions.isEmpty()) {
+            return false;
+        }
+        championRepository.deleteAll(champions);
+        return true;
+    }
+
+}
 //    public boolean deleteById(UUID id) {
-//        if (championsRepository.existsById(id)) {
-//            championsRepository.deleteById(id);
+//        if (championRepository.existsById(id)) {
+//            championRepository.deleteById(id);
 //            return true;
 //        } else {
 //            return false;
 //        }
 //    }
-}
+
