@@ -19,9 +19,8 @@ public class RegionValidator {
 
         boolean isValid = VALID_REGIONS.stream()
                 .anyMatch(validRegion -> validRegion.equalsIgnoreCase(region));
-        if (!VALID_REGIONS.contains(region.toUpperCase())) {
+        if (!isValid) {
             throw new IllegalArgumentException("Invalid region: '" +region+ "'. Valid regions are: '"+ VALID_REGIONS + "'");
         }
     }
 }
-/* */
