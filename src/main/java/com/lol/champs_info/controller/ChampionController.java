@@ -24,7 +24,7 @@ public class ChampionController {
     }
 
     @GetMapping("/region/{region}")
-    public ResponseEntity<?> getByRegion(@RequestParam String region) {
+    public ResponseEntity<?> getByRegion(@PathVariable String region) {
         try {
             return ResponseEntity.ok(championService.getChampionsFromRegion(region));
         } catch (IllegalArgumentException e) {
