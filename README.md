@@ -1,91 +1,86 @@
-League of Legends Champions Info API 🏆
-Uma API Spring Boot para gerenciar informações sobre campeões do League of Legends (LoL), incluindo dados como região, classe, função, tier e estatísticas de jogo.
+# 🏆 LoL Champs Info - Spring Boot API
 
-Tecnologias Utilizadas
-Java 21
+Este repositório contém uma API desenvolvida com **Spring Boot**, focada em gerenciar dados de **campeões do League of Legends**, como nome, função, região, tier, estatísticas de jogo e mais. A API permite listar, adicionar, atualizar e remover campeões com base em atributos específicos.
 
-Spring Boot 3.4.4
+---
 
-Spring Data JPA (PostgreSQL)
+## 🚀 Tecnologias utilizadas
 
-Lombok (para reduzir boilerplate)
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Lombok
+- PostgreSQL
+- IDE: IntelliJ IDEA ou VSCode
 
-Mockito/JUnit (testes unitários)
+---
 
-Swagger/OpenAPI (documentação da API)
+## 📚 Funcionalidades
 
-Funcionalidades
-✅ CRUD Completo
+- 📋 Listar campeões por nome, região, classe, tier ou função
+- ➕ Adicionar novos campeões
+- ♻️ Atualizar informações de campeões existentes
+- ❌ Deletar campeões por nome e função
+- ✅ Validação de dados por meio de validadores específicos
 
-Adicionar, atualizar, buscar e deletar campeões.
+---
 
-✅ Filtros Avançados
+## 📦 Estrutura
 
-Buscar campeões por:
+- `model/ChampionEntity`: Entidade com todos os atributos dos campeões
+- `service/ChampionService`: Lógica de negócio da aplicação
+- `repository/ChampionRepository`: Interface com o banco de dados
+- `validators/`: Classes que validam atributos como tier, função, região, etc.
 
-Região (ex: Demacia, Noxus)
+---
 
-Classe (ex: Assassin, Mage)
+## 📌 Exemplos de endpoints
 
-Função (Role) (ex: Top, Mid, Jungle)
+| Método | Endpoint                          | Ação                             |
+|--------|-----------------------------------|----------------------------------|
+| GET    | `/champions/names`               | Lista nomes de campeões          |
+| GET    | `/champions/region/{region}`     | Lista por região                 |
+| GET    | `/champions/class/{classType}`   | Lista por classe                 |
+| GET    | `/champions/role/{role}`         | Lista por função                 |
+| GET    | `/champions/tier/{tier}`         | Lista por tier                   |
+| POST   | `/champions`                     | Adiciona novo campeão            |
+| PUT    | `/champions`                     | Atualiza campeão existente       |
+| DELETE | `/champions/{name}/{role}`       | Remove campeão pelo nome e role  |
 
-Tier (ex: S, A, B)
+---
 
-✅ Validações
+## 🧪 Exemplo de JSON
 
-Garante que os dados inseridos sigam regras específicas (ex: tier válido, região existente).
-
-Como Rodar o Projeto
-Pré-requisitos
-JDK 21 instalado
-
-PostgreSQL rodando (ou configurar outro banco em application.properties)
-
-Maven
-
-Passos
-Clone o repositório:
-
-bash
-git clone https://github.com/seu-usuario/lol-champs-api.git
-Configure o banco de dados em:
-src/main/resources/application.properties
-
-properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/lolchamps
-spring.datasource.username=seu_user
-spring.datasource.password=suasenha
-Rode a aplicação:
-
-bash
-mvn spring-boot:run
-Acesse a documentação (Swagger UI):
-http://localhost:8080/swagger-ui.html
-
-Endpoints da API
-Método	Endpoint	Descrição
-GET	/api/champions	Lista todos os campeões
-GET	/api/champions/names	Retorna apenas os nomes dos campeões
-GET	/api/champions/region/{region}	Filtra por região (ex: Demacia)
-GET	/api/champions/class/{classType}	Filtra por classe (ex: Mage)
-GET	/api/champions/role/{role}	Filtra por função (ex: Mid)
-GET	/api/champions/tier/{tier}	Filtra por tier (ex: S)
-POST	/api/champions	Adiciona um novo campeão
-PUT	/api/champions	Atualiza um campeão existente
-DELETE	/api/champions?name={name}&role={role}	Deleta um campeão por nome e função
-Exemplo de JSON (POST/PUT)
-json
+```json
 {
   "name": "Ahri",
   "region": "Ionia",
   "classType": "Mage",
   "role": "Mid",
   "tier": "S",
-  "score": 9.5,
+  "score": 89.5,
   "trend": 1.2,
   "winRate": 52.3,
-  "roleRate": 85.0,
-  "pickRate": 15.7,
-  "banRate": 30.2,
+  "roleRate": 76.0,
+  "pickRate": 34.5,
+  "banRate": 12.1,
   "kda": 3.5
 }
+
+## 🛠️ Como executar
+Clone o projeto:
+
+bash
+Copiar
+Editar
+git clone https://github.com/TiagoEich/League-of-Legends-Api.git
+
+
+Configure o application.properties:spring.datasource.url=jdbc:postgresql://localhost:5432/lolapi
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+baixe o arquivo CSV, disponpível no site: https://www.kaggle.com/datasets/uskeche/leauge-of-legends-champions-dataset
