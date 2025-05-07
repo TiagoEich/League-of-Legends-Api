@@ -66,7 +66,7 @@ Este repositório contém uma API desenvolvida com **Spring Boot**, focada em ge
   "banRate": 12.1,
   "kda": 3.5
 }
-
+```
 ## 🛠️ Como executar
 Clone o projeto:
 
@@ -83,4 +83,4 @@ spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
-baixe o arquivo CSV, disponpível no site: https://www.kaggle.com/datasets/uskeche/leauge-of-legends-champions-dataset
+baixe o arquivo CSV, disponpível no site: [Arquivo CSV ->]https://www.kaggle.com/datasets/uskeche/leauge-of-legends-champions-dataset
