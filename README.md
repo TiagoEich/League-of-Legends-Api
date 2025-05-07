@@ -83,5 +83,5 @@ spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
-baixe o arquivo CSV, disponpível no site:[Arquivo CSV ->](https://www.kaggle.com/datasets/uskeche/leauge-of-legends-champions-dataset)
+baixe o arquivo CSV, disponpível no site: [Arquivo CSV ->](https://www.kaggle.com/datasets/uskeche/leauge-of-legends-champions-dataset)
 
