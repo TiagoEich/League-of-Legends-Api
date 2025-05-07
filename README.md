@@ -36,16 +36,16 @@ Este repositório contém uma API desenvolvida com **Spring Boot**, focada em ge
 
 ## 📌 Exemplos de endpoints
 
-| Método | Endpoint                          | Ação                             |
-|--------|-----------------------------------|----------------------------------|
-| GET    | `/champions/names`               | Lista nomes de campeões          |
-| GET    | `/champions/region/{region}`     | Lista por região                 |
-| GET    | `/champions/class/{classType}`   | Lista por classe                 |
-| GET    | `/champions/role/{role}`         | Lista por função                 |
-| GET    | `/champions/tier/{tier}`         | Lista por tier                   |
-| POST   | `/champions`                     | Adiciona novo campeão            |
-| PUT    | `/champions`                     | Atualiza campeão existente       |
-| DELETE | `/champions/{name}/{role}`       | Remove campeão pelo nome e role  |
+| Método | Endpoint               | Ação                  |
+|--------|------------------------|-----------------------|-----------
+| GET    | `/names`               | Lista nomes de campeões          |
+| GET    | `/region/{region}`     | Lista por região                 |
+| GET    | `/class/{classType}`   | Lista por classe                 |
+| GET    | `/role/{role}`         | Lista por função                 |
+| GET    | `/tier/{tier}`         | Lista por tier                   |
+| POST   | `/addChampion`         | Adiciona novo campeão            |
+| PUT    | `/champions`           | Atualiza campeão existente       |
+| DELETE | `/deleteChampion}`     | Remove campeão pelo nome e role  |
 
 ---
 
