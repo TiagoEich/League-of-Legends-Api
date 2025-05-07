@@ -69,9 +69,6 @@ Este repositório contém uma API desenvolvida com **Spring Boot**, focada em ge
 ## 🛠️ Como executar
 Clone o projeto:
 
-bash
-Copiar
-Editar
 git clone https://github.com/TiagoEich/League-of-Legends-Api.git
 
 
