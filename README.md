@@ -1,4 +1,4 @@
-# 🏆 LoL Champs Info - Spring Boot API
+# 🏆 Informação de campeões de League of Legends
 
 Este repositório contém uma API desenvolvida com **Spring Boot**, focada em gerenciar dados de **campeões do League of Legends**, como nome, função, região, tier, estatísticas de jogo e mais. A API permite listar, adicionar, atualizar e remover campeões com base em atributos específicos.
 
