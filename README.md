@@ -6,12 +6,12 @@ Este repositório contém uma API desenvolvida com **Spring Boot**, focada em ge
 
 ## 🚀 Tecnologias utilizadas
 
-- Java 17
+- Java 21
 - Spring Boot
 - Spring Data JPA
 - Lombok
 - PostgreSQL
-- IDE: IntelliJ IDEA ou VSCode
+- IDE: IntelliJ IDEA
 
 ---
 
@@ -72,12 +72,21 @@ Clone o projeto:
 git clone https://github.com/TiagoEich/League-of-Legends-Api.git
 
 
-Configure o application.properties:spring.datasource.url=jdbc:postgresql://localhost:5432/lolapi
+Configure o application.properties:
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/Nome_Do_Seu_Banco_De_Dados
+
 spring.datasource.username=seu_usuario
+
 spring.datasource.password=sua_senha
+
 spring.datasource.driver-class-name=org.postgresql.Driver
+
 spring.jpa.hibernate.ddl-auto=update
+
 spring.jpa.show-sql=true
+
+
 
 baixe o arquivo CSV, disponpível no site: [Arquivo CSV ->](https://www.kaggle.com/datasets/uskeche/leauge-of-legends-champions-dataset)
 
